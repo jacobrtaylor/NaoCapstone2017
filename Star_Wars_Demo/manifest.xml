@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<package uuid="starwars-9b43cf">
+ <names>
+  <name lang="en_US">star wars</name>
+ </names>
+ <descriptionLanguages>
+  <language>en_US</language>
+ </descriptionLanguages>
+ <contents>
+  <behaviorContent path="star wars">
+   <nature></nature>
+   <permissions/>
+  </behaviorContent>
+ </contents>
+</package>
