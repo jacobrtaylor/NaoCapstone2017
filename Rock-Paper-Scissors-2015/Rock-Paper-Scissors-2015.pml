@@ -9,5 +9,7 @@
         <File name="choice_sentences" src="behavior_1/Aldebaran/choice_sentences.xml" />
     </Resources>
     <Topics />
-    <IgnoredPaths />
+    <IgnoredPaths>
+        <Path src="Pictures - Shortcut.lnk" />
+    </IgnoredPaths>
 </Package>
