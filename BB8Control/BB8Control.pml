@@ -5,7 +5,9 @@
         <BehaviorDescription name="behavior" src="behavior_1" xar="behavior.xar" />
     </BehaviorDescriptions>
     <Dialogs />
-    <Resources />
+    <Resources>
+        <File name="BB8Control" src="BB8Control.pptx" />
+    </Resources>
     <Topics />
     <IgnoredPaths />
 </Package>
