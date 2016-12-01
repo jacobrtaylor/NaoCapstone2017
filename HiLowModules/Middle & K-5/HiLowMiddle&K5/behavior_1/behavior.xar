@@ -29,7 +29,7 @@
                                 <BehaviorLayer name="behavior_layer1">
                                     <BehaviorKeyframe name="keyframe1" index="1">
                                         <Diagram>
-                                            <Box name="HiLow Game" id="2" localization="8" tooltip="Enter description here" x="766" y="211">
+                                            <Box name="HiLow Game" id="2" localization="8" tooltip="Enter description here" x="573" y="135">
                                                 <bitmap>media/images/box/box-diagram.png</bitmap>
                                                 <script language="4">
                                                     <content>
@@ -237,7 +237,7 @@ class MyClass(GeneratedClass):
                                                                                             <chinese>
                                                                                                 <![CDATA[]]>
 </chinese>
-                                                                                            <language>12</language>
+                                                                                            <language>14</language>
                                                                                         </pluginContent>
                                                                                         <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
                                                                                         <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Data is sent on the output when this input is stimulated." id="2" />
@@ -399,12 +399,12 @@ class MyClass(GeneratedClass):
 
 		self.tts = ALProxy("ALTextToSpeech")
 		self.sentences = {
-			"Arabic" : " مرحبا ",
+			"Arabic" : "  ",
 			"Czech" : " Ahoj ",
 			"Danish" : " Hej ",
 			"German" : " Hallo ",
 			"Greek" : "  ",
-			"English" : " I\'m sorry but you did not pay attention to my hint. Please try to pay attention. ",
+			"English" : " Oops! You need to guess higher! ",
 			"Spanish" : " Hola ",
 			"Finnish" : " Hei ",
 			"French" : " Bonjour ",
@@ -429,7 +429,7 @@ class MyClass(GeneratedClass):
                                                                                                                                                     </script>
                                                                                                                                                     <pluginContent>
                                                                                                                                                         <arabic>
-                                                                                                                                                            <![CDATA[مرحبا]]>
+                                                                                                                                                            <![CDATA[]]>
 </arabic>
                                                                                                                                                         <czech>
                                                                                                                                                             <![CDATA[Ahoj]]>
@@ -444,7 +444,7 @@ class MyClass(GeneratedClass):
                                                                                                                                                             <![CDATA[]]>
 </greek>
                                                                                                                                                         <english>
-                                                                                                                                                            <![CDATA[I'm sorry but you did not pay attention to my hint. Please try to pay attention.]]>
+                                                                                                                                                            <![CDATA[Oops! You need to guess higher!]]>
 </english>
                                                                                                                                                         <spanish>
                                                                                                                                                             <![CDATA[Hola]]>
@@ -651,7 +651,7 @@ class MyClass(GeneratedClass):
                                                                         </BehaviorLayer>
                                                                     </Timeline>
                                                                 </Box>
-                                                                <Box name="Automated Responses" id="2" localization="8" tooltip="Enter description here" x="262" y="531">
+                                                                <Box name="Automated Responses" id="2" localization="8" tooltip="Enter description here" x="277" y="540">
                                                                     <bitmap>media/images/box/box-diagram.png</bitmap>
                                                                     <script language="4">
                                                                         <content>
@@ -663,7 +663,8 @@ class MyClass(GeneratedClass):
                                                                     <Input name="Stop" type="1" type_size="1" nature="3" inner="0" tooltip="" id="3" />
                                                                     <Output name="AResponse_GuessAgain" type="1" type_size="1" nature="1" inner="0" tooltip="This output has been automatically generated&#x0A;by converting several boxes into a single box." id="4" />
                                                                     <Output name="AResponse_Win" type="1" type_size="1" nature="2" inner="0" tooltip="This output has been automatically generated&#x0A;by converting several boxes into a single box." id="5" />
-                                                                    <Output name="AResponse_Bad" type="1" type_size="1" nature="2" inner="0" tooltip="This output has been automatically generated&#x0A;by converting several boxes into a single box." id="6" />
+                                                                    <Output name="AResponse_Low" type="1" type_size="1" nature="2" inner="0" tooltip="This output has been automatically generated&#x0A;by converting several boxes into a single box." id="6" />
+                                                                    <Output name="AResponse_High" type="1" type_size="1" nature="2" inner="0" tooltip="" id="7" />
                                                                     <Timeline enable="0">
                                                                         <BehaviorLayer name="behavior_layer1">
                                                                             <BehaviorKeyframe name="keyframe1" index="1">
@@ -743,7 +744,7 @@ class MyClass(GeneratedClass):
                 self.GuessAgain()
             if int(guess) < int(low):
                 self.tts.say("low")
-                self.Bad()
+                self.Low()
 
 
         if result < guess:
@@ -755,7 +756,7 @@ class MyClass(GeneratedClass):
 
             if guess > high:
                 self.tts.say("high")
-                self.Bad()
+                self.High()
 
 
     def onInput_onStop(self):
@@ -767,15 +768,17 @@ class MyClass(GeneratedClass):
                                                                                         <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
                                                                                         <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
                                                                                         <Output name="Win" type="1" type_size="1" nature="2" inner="0" tooltip="" id="4" />
-                                                                                        <Output name="Bad" type="1" type_size="1" nature="2" inner="0" tooltip="" id="5" />
+                                                                                        <Output name="Low" type="1" type_size="1" nature="2" inner="0" tooltip="" id="5" />
                                                                                         <Output name="GuessAgain" type="1" type_size="1" nature="1" inner="0" tooltip="" id="6" />
-                                                                                        <Parameter name="key" inherits_from_parent="0" content_type="3" value="Highest" default_value="ranInt" custom_choice="0" tooltip="" id="7" />
+                                                                                        <Output name="High" type="1" type_size="1" nature="2" inner="0" tooltip="Runs when the player guesses obviously high." id="7" />
+                                                                                        <Parameter name="key" inherits_from_parent="0" content_type="3" value="Highest" default_value="ranInt" custom_choice="0" tooltip="" id="8" />
                                                                                     </Box>
                                                                                     <Link inputowner="15" indexofinput="2" outputowner="14" indexofoutput="4" />
                                                                                     <Link inputowner="14" indexofinput="2" outputowner="0" indexofoutput="2" />
                                                                                     <Link inputowner="0" indexofinput="4" outputowner="15" indexofoutput="6" />
                                                                                     <Link inputowner="0" indexofinput="5" outputowner="15" indexofoutput="4" />
                                                                                     <Link inputowner="0" indexofinput="6" outputowner="15" indexofoutput="5" />
+                                                                                    <Link inputowner="0" indexofinput="7" outputowner="15" indexofoutput="7" />
                                                                                 </Diagram>
                                                                             </BehaviorKeyframe>
                                                                         </BehaviorLayer>
@@ -8109,7 +8112,7 @@ class MyClass(GeneratedClass):
                                                                                             <chinese>
                                                                                                 <![CDATA[]]>
 </chinese>
-                                                                                            <language>12</language>
+                                                                                            <language>14</language>
                                                                                         </pluginContent>
                                                                                         <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
                                                                                         <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Data is sent on the output when this input is stimulated." id="2" />
@@ -15612,7 +15615,7 @@ class MyClass(GeneratedClass):
                                                                                             <chinese>
                                                                                                 <![CDATA[]]>
 </chinese>
-                                                                                            <language>8</language>
+                                                                                            <language>10</language>
                                                                                         </pluginContent>
                                                                                         <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
                                                                                         <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Data is sent on the output when this input is stimulated." id="2" />
@@ -15838,7 +15841,7 @@ class MyClass(GeneratedClass):
                                                                                             <chinese>
                                                                                                 <![CDATA[]]>
 </chinese>
-                                                                                            <language>13</language>
+                                                                                            <language>15</language>
                                                                                         </pluginContent>
                                                                                         <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
                                                                                         <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Data is sent on the output when this input is stimulated." id="2" />
@@ -17001,7 +17004,7 @@ class MyClass(GeneratedClass):
                                                                                                                                     <chinese>
                                                                                                                                         <![CDATA[]]>
 </chinese>
-                                                                                                                                    <language>14</language>
+                                                                                                                                    <language>16</language>
                                                                                                                                 </pluginContent>
                                                                                                                                 <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
                                                                                                                                 <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Data is sent on the output when this input is stimulated." id="2" />
@@ -17658,7 +17661,7 @@ class MyClass(GeneratedClass):
                                                                                                                                     <chinese>
                                                                                                                                         <![CDATA[]]>
 </chinese>
-                                                                                                                                    <language>14</language>
+                                                                                                                                    <language>16</language>
                                                                                                                                 </pluginContent>
                                                                                                                                 <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
                                                                                                                                 <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Data is sent on the output when this input is stimulated." id="2" />
@@ -19081,7 +19084,7 @@ class MyClass(GeneratedClass):
                                                                                                                                     <chinese>
                                                                                                                                         <![CDATA[]]>
 </chinese>
-                                                                                                                                    <language>9</language>
+                                                                                                                                    <language>11</language>
                                                                                                                                 </pluginContent>
                                                                                                                                 <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
                                                                                                                                 <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Data is sent on the output when this input is stimulated." id="2" />
@@ -19514,7 +19517,7 @@ class MyClass(GeneratedClass):
                                                                                                                                     <chinese>
                                                                                                                                         <![CDATA[]]>
 </chinese>
-                                                                                                                                    <language>9</language>
+                                                                                                                                    <language>11</language>
                                                                                                                                 </pluginContent>
                                                                                                                                 <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
                                                                                                                                 <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Data is sent on the output when this input is stimulated." id="2" />
@@ -20145,7 +20148,7 @@ class MyClass(GeneratedClass):
                                                                                                                                     <chinese>
                                                                                                                                         <![CDATA[]]>
 </chinese>
-                                                                                                                                    <language>11</language>
+                                                                                                                                    <language>13</language>
                                                                                                                                 </pluginContent>
                                                                                                                                 <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
                                                                                                                                 <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Data is sent on the output when this input is stimulated." id="2" />
@@ -20241,6 +20244,405 @@ class MyClass(GeneratedClass):
                                                                         </BehaviorLayer>
                                                                     </Timeline>
                                                                 </Box>
+                                                                <Box name="Face Palm (1)" id="8" localization="8" tooltip="Enter description here" x="909" y="682">
+                                                                    <bitmap>media/images/box/box-diagram.png</bitmap>
+                                                                    <script language="4">
+                                                                        <content>
+                                                                            <![CDATA[]]>
+</content>
+                                                                    </script>
+                                                                    <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+                                                                    <Input name="FacePalm_Timeline_onStart" type="1" type_size="1" nature="2" inner="0" tooltip="This input has been automatically generated&#x0A;by converting several boxes into a single box." id="2" />
+                                                                    <Input name="OnSTop" type="1" type_size="1" nature="3" inner="0" tooltip="" id="3" />
+                                                                    <Output name="StandUp1_success" type="1" type_size="1" nature="1" inner="0" tooltip="This output has been automatically generated&#x0A;by converting several boxes into a single box." id="4" />
+                                                                    <Timeline enable="0">
+                                                                        <BehaviorLayer name="behavior_layer1">
+                                                                            <BehaviorKeyframe name="keyframe1" index="1">
+                                                                                <Diagram>
+                                                                                    <Box name="FacePalm" id="4" localization="8" tooltip="Robot puts hand on his forehead" x="266" y="620">
+                                                                                        <bitmap>media/images/box/box-diagram.png</bitmap>
+                                                                                        <script language="4">
+                                                                                            <content>
+                                                                                                <![CDATA[]]>
+</content>
+                                                                                        </script>
+                                                                                        <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+                                                                                        <Input name="Timeline_onStart" type="1" type_size="1" nature="2" inner="0" tooltip="This input has been automatically generated&#x0A;by converting several boxes into a single box." id="2" />
+                                                                                        <Input name="input" type="1" type_size="1" nature="3" inner="0" tooltip="" id="3" />
+                                                                                        <Output name="Timeline_onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="This output has been automatically generated&#x0A;by converting several boxes into a single box." id="4" />
+                                                                                        <Timeline enable="0">
+                                                                                            <BehaviorLayer name="behavior_layer1">
+                                                                                                <BehaviorKeyframe name="keyframe1" index="1">
+                                                                                                    <Diagram>
+                                                                                                        <Box name="Timeline" id="1" localization="8" tooltip="This box is empty (contains a single motion layer with no motor position&#x0A;defined in it) and should be used to create any animation you would like." x="263" y="179">
+                                                                                                            <bitmap>media/images/box/movement/move.png</bitmap>
+                                                                                                            <script language="4">
+                                                                                                                <content>
+                                                                                                                    <![CDATA[]]>
+</content>
+                                                                                                            </script>
+                                                                                                            <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+                                                                                                            <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+                                                                                                            <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+                                                                                                            <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" />
+                                                                                                            <Timeline enable="1" fps="25" start_frame="1" end_frame="126" size="126">
+                                                                                                                <BehaviorLayer name="behavior_layer1">
+                                                                                                                    <BehaviorKeyframe name="keyframe1" index="1">
+                                                                                                                        <Diagram>
+                                                                                                                            <Box name="Say" id="1" localization="8" tooltip="Say some text. Note that you must open the box to enter the text." x="158" y="54">
+                                                                                                                                <bitmap>media/images/box/interaction/say.png</bitmap>
+                                                                                                                                <script language="4">
+                                                                                                                                    <content>
+                                                                                                                                        <![CDATA[class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self, False)
+
+    def onLoad(self):
+        self.bIsRunning = False
+
+    def onUnload(self):
+        self.bIsRunning = False
+
+    def onInput_onStart(self):
+        self.bIsRunning = True
+
+    def onInput_onStop(self):
+        if( self.bIsRunning ):
+            self.onUnload()
+            self.onStopped()]]>
+</content>
+                                                                                                                                </script>
+                                                                                                                                <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when Diagram is loaded." id="1" />
+                                                                                                                                <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this Input." id="2" />
+                                                                                                                                <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this Input." id="3" />
+                                                                                                                                <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished or stopped." id="4" />
+                                                                                                                                <Parameter name="Voice shaping (%)" inherits_from_parent="0" content_type="1" value="100" default_value="100" min="50" max="150" tooltip='Used to modify at runtime the voice feature (tone, speed). In a slighty&#x0A;different way than pitch and speed, it gives a kind of &quot;gender or age&#x0A;modification&quot; effect.&#x0A;&#x0A;For instance, a quite good male derivation of female voice can be&#x0A;obtained setting this parameter to 78%.&#x0A;&#x0A;Note: For a better effect, you can compensate this parameter with the&#x0A;speed parameter. For example, if you want to decrease by 20% the voice&#x0A;shaping, you will have to increase by 20% the speed to keep a constant&#x0A;average speed.&#x0A;&#x0A;!Warning! This feature is not available yet in Japanese, Chinese and Korean.' id="5" />
+                                                                                                                                <Parameter name="Speed (%)" inherits_from_parent="0" content_type="1" value="100" default_value="100" min="50" max="200" tooltip="Changes the speed of the voice.&#x0A;&#x0A;Note: For a better effect, you can compensate this parameter with the voice&#x0A;shaping parameter. For example, if you want to increase by 20% the speed, you&#x0A;will have to decrease by 20% the voice shaping to keep a constant average&#x0A;speed.&#x0A;&#x0A;!Warning! This feature is not available yet in Japanese, Chinese and Korean." id="6" />
+                                                                                                                                <Timeline enable="0">
+                                                                                                                                    <BehaviorLayer name="behavior_layer1">
+                                                                                                                                        <BehaviorKeyframe name="keyframe1" index="1">
+                                                                                                                                            <Diagram>
+                                                                                                                                                <Box name="Say Text" id="2" localization="8" tooltip="Say the text received on its input." x="422" y="65">
+                                                                                                                                                    <bitmap>media/images/box/interaction/say.png</bitmap>
+                                                                                                                                                    <script language="4">
+                                                                                                                                                        <content>
+                                                                                                                                                            <![CDATA[import time
+
+class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self, False)
+        self.tts = ALProxy('ALTextToSpeech')
+        self.ttsStop = ALProxy('ALTextToSpeech', True) #Create another proxy as wait is blocking if audioout is remote
+
+    def onLoad(self):
+        self.bIsRunning = False
+        self.ids = []
+
+    def onUnload(self):
+        for id in self.ids:
+            try:
+                self.ttsStop.stop(id)
+            except:
+                pass
+        while( self.bIsRunning ):
+            time.sleep( 0.2 )
+
+    def onInput_onStart(self, p):
+        self.bIsRunning = True
+        try:
+            sentence = "\RSPD="+ str( self.getParameter("Speed (%)") ) + "\ "
+            sentence += "\VCT="+ str( self.getParameter("Voice shaping (%)") ) + "\ "
+            sentence += str(p)
+            sentence +=  "\RST\ "
+            id = self.tts.post.say(str(sentence))
+            self.ids.append(id)
+            self.tts.wait(id, 0)
+        finally:
+            try:
+                self.ids.remove(id)
+            except:
+                pass
+            if( self.ids == [] ):
+                self.onStopped() # activate output of the box
+                self.bIsRunning = False
+
+    def onInput_onStop(self):
+        self.onUnload()]]>
+</content>
+                                                                                                                                                    </script>
+                                                                                                                                                    <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when Diagram is loaded." id="1" />
+                                                                                                                                                    <Input name="onStart" type="3" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this Input." id="2" />
+                                                                                                                                                    <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this Input." id="3" />
+                                                                                                                                                    <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when Box behavior is finished." id="4" />
+                                                                                                                                                    <Parameter name="Voice shaping (%)" inherits_from_parent="1" content_type="1" value="100" default_value="100" min="50" max="150" tooltip='Used to modify at runtime the voice feature (tone, speed). In a slighty&#x0A;different way than pitch and speed, it gives a kind of &quot;gender or age&#x0A;modification&quot; effect.&#x0A;&#x0A;For instance, a quite good male derivation of female voice can be&#x0A;obtained setting this parameter to 78%.&#x0A;&#x0A;Note: For a better effect, you can compensate this parameter with the&#x0A;speed parameter. For example, if you want to decrease by 20% the voice&#x0A;shaping, you will have to increase by 20% the speed to keep a constant&#x0A;average speed.' id="5" />
+                                                                                                                                                    <Parameter name="Speed (%)" inherits_from_parent="1" content_type="1" value="100" default_value="100" min="50" max="200" tooltip="Changes the speed of the voice.&#x0A;&#x0A;Note: For a better effect, you can compensate this parameter with the voice&#x0A;shaping parameter. For example, if you want to increase by 20% the speed, you&#x0A;will have to decrease by 20% the voice shaping to keep a constant average&#x0A;speed." id="6" />
+                                                                                                                                                </Box>
+                                                                                                                                                <Box name="Localized Text" id="5" localization="8" tooltip="Send on the output the text associated with the robot&apos;s current voice language.&#x0A;You can display and edit the text associated with any language by&#x0A;selecting the language in the combobox.&#x0A;&#x0A;!!Warning!! The text sent on the output is NOT the displayed one but the one&#x0A;associated with the robot&apos;s current voice language." plugin="localizationbox_plugin" x="114" y="68">
+                                                                                                                                                    <bitmap>media/images/box/interaction/vocabulary.png</bitmap>
+                                                                                                                                                    <script language="4">
+                                                                                                                                                        <content>
+                                                                                                                                                            <![CDATA[# /!\ Generated content. Do not edit!
+class MyClass(GeneratedClass):
+	def __init__(self):
+		try: # disable autoBind
+			GeneratedClass.__init__(self, False)
+		except TypeError: # if NAOqi < 1.14
+			GeneratedClass.__init__( self )
+
+		self.tts = ALProxy("ALTextToSpeech")
+		self.sentences = {
+			"Arabic" : "  ",
+			"Czech" : " Ahoj ",
+			"Danish" : " Hej ",
+			"German" : " Hallo ",
+			"Greek" : "  ",
+			"English" : " Oops! You need to guess lower! ",
+			"Spanish" : " Hola ",
+			"Finnish" : " Hei ",
+			"French" : " Bonjour ",
+			"Italian" : " Ciao ",
+			"Japanese" : " こんにちは ",
+			"Korean" : " 안녕하세요 ",
+			"Dutch" : " Hallo ",
+			"Norwegian" : "  ",
+			"Polish" : " Cześć ",
+			"Brazilian" : " Olá ",
+			"Portuguese" : " Olá ",
+			"Russian" : " Привет ",
+			"Swedish" : " Hallå ",
+			"Turkish" : " Merhaba ",
+			"Chinese" : "  "
+		}
+
+	def onInput_onStart(self):
+		sDefaultLang = self.tts.getLanguage()
+		self.onStopped(self.sentences[sDefaultLang])]]>
+</content>
+                                                                                                                                                    </script>
+                                                                                                                                                    <pluginContent>
+                                                                                                                                                        <arabic>
+                                                                                                                                                            <![CDATA[]]>
+</arabic>
+                                                                                                                                                        <czech>
+                                                                                                                                                            <![CDATA[Ahoj]]>
+</czech>
+                                                                                                                                                        <danish>
+                                                                                                                                                            <![CDATA[Hej]]>
+</danish>
+                                                                                                                                                        <german>
+                                                                                                                                                            <![CDATA[Hallo]]>
+</german>
+                                                                                                                                                        <greek>
+                                                                                                                                                            <![CDATA[]]>
+</greek>
+                                                                                                                                                        <english>
+                                                                                                                                                            <![CDATA[Oops! You need to guess lower!]]>
+</english>
+                                                                                                                                                        <spanish>
+                                                                                                                                                            <![CDATA[Hola]]>
+</spanish>
+                                                                                                                                                        <finnish>
+                                                                                                                                                            <![CDATA[Hei]]>
+</finnish>
+                                                                                                                                                        <french>
+                                                                                                                                                            <![CDATA[Bonjour]]>
+</french>
+                                                                                                                                                        <italian>
+                                                                                                                                                            <![CDATA[Ciao]]>
+</italian>
+                                                                                                                                                        <japanese>
+                                                                                                                                                            <![CDATA[こんにちは]]>
+</japanese>
+                                                                                                                                                        <korean>
+                                                                                                                                                            <![CDATA[안녕하세요]]>
+</korean>
+                                                                                                                                                        <dutch>
+                                                                                                                                                            <![CDATA[Hallo]]>
+</dutch>
+                                                                                                                                                        <norwegian>
+                                                                                                                                                            <![CDATA[]]>
+</norwegian>
+                                                                                                                                                        <polish>
+                                                                                                                                                            <![CDATA[Cześć]]>
+</polish>
+                                                                                                                                                        <brazilian>
+                                                                                                                                                            <![CDATA[Olá]]>
+</brazilian>
+                                                                                                                                                        <portuguese>
+                                                                                                                                                            <![CDATA[Olá]]>
+</portuguese>
+                                                                                                                                                        <russian>
+                                                                                                                                                            <![CDATA[Привет]]>
+</russian>
+                                                                                                                                                        <swedish>
+                                                                                                                                                            <![CDATA[Hallå]]>
+</swedish>
+                                                                                                                                                        <turkish>
+                                                                                                                                                            <![CDATA[Merhaba]]>
+</turkish>
+                                                                                                                                                        <chinese>
+                                                                                                                                                            <![CDATA[]]>
+</chinese>
+                                                                                                                                                        <language>5</language>
+                                                                                                                                                    </pluginContent>
+                                                                                                                                                    <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+                                                                                                                                                    <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Data is sent on the output when this input is stimulated." id="2" />
+                                                                                                                                                    <Output name="onStopped" type="3" type_size="1" nature="1" inner="0" tooltip="Data sent when asked." id="3" />
+                                                                                                                                                </Box>
+                                                                                                                                                <Link inputowner="0" indexofinput="4" outputowner="2" indexofoutput="4" />
+                                                                                                                                                <Link inputowner="5" indexofinput="2" outputowner="0" indexofoutput="2" />
+                                                                                                                                                <Link inputowner="2" indexofinput="2" outputowner="5" indexofoutput="3" />
+                                                                                                                                            </Diagram>
+                                                                                                                                        </BehaviorKeyframe>
+                                                                                                                                    </BehaviorLayer>
+                                                                                                                                </Timeline>
+                                                                                                                                <Resource name="Speech" type="Lock" timeout="0" />
+                                                                                                                            </Box>
+                                                                                                                            <Link inputowner="1" indexofinput="2" outputowner="0" indexofoutput="1" />
+                                                                                                                            <Link inputowner="0" indexofinput="4" outputowner="1" indexofoutput="4" />
+                                                                                                                        </Diagram>
+                                                                                                                    </BehaviorKeyframe>
+                                                                                                                </BehaviorLayer>
+                                                                                                                <ActuatorList model="nao">
+                                                                                                                    <ActuatorCurve name="value" actuator="HeadPitch" recordable="0" mute="0" unit="0">
+                                                                                                                        <Key frame="21" value="23.0252" />
+                                                                                                                    </ActuatorCurve>
+                                                                                                                    <ActuatorCurve name="value" actuator="HeadYaw" recordable="0" mute="0" unit="0">
+                                                                                                                        <Key frame="21" value="0.524941" />
+                                                                                                                    </ActuatorCurve>
+                                                                                                                    <ActuatorCurve name="value" actuator="LElbowRoll" recordable="0" mute="0" unit="0">
+                                                                                                                        <Key frame="25" value="-38.5821" />
+                                                                                                                    </ActuatorCurve>
+                                                                                                                    <ActuatorCurve name="value" actuator="LElbowYaw" recordable="0" mute="0" unit="0">
+                                                                                                                        <Key frame="25" value="-68.7337" />
+                                                                                                                    </ActuatorCurve>
+                                                                                                                    <ActuatorCurve name="value" actuator="LHand" recordable="0" mute="0" unit="1">
+                                                                                                                        <Key frame="25" value="0.2896" />
+                                                                                                                    </ActuatorCurve>
+                                                                                                                    <ActuatorCurve name="value" actuator="LShoulderPitch" recordable="0" mute="0" unit="0">
+                                                                                                                        <Key frame="25" value="86.8346" />
+                                                                                                                    </ActuatorCurve>
+                                                                                                                    <ActuatorCurve name="value" actuator="LShoulderRoll" recordable="0" mute="0" unit="0">
+                                                                                                                        <Key frame="25" value="10.6325" />
+                                                                                                                    </ActuatorCurve>
+                                                                                                                    <ActuatorCurve name="value" actuator="LWristYaw" recordable="0" mute="0" unit="0">
+                                                                                                                        <Key frame="25" value="7.02893" />
+                                                                                                                    </ActuatorCurve>
+                                                                                                                    <ActuatorCurve name="value" actuator="RElbowRoll" recordable="0" mute="0" unit="0">
+                                                                                                                        <Key frame="25" value="88.0699" />
+                                                                                                                    </ActuatorCurve>
+                                                                                                                    <ActuatorCurve name="value" actuator="RElbowYaw" recordable="0" mute="0" unit="0">
+                                                                                                                        <Key frame="25" value="56.512" />
+                                                                                                                    </ActuatorCurve>
+                                                                                                                    <ActuatorCurve name="value" actuator="RHand" recordable="0" mute="0" unit="1">
+                                                                                                                        <Key frame="25" value="0.2956" />
+                                                                                                                    </ActuatorCurve>
+                                                                                                                    <ActuatorCurve name="value" actuator="RShoulderPitch" recordable="0" mute="0" unit="0">
+                                                                                                                        <Key frame="25" value="25.8426" />
+                                                                                                                    </ActuatorCurve>
+                                                                                                                    <ActuatorCurve name="value" actuator="RShoulderRoll" recordable="0" mute="0" unit="0">
+                                                                                                                        <Key frame="25" value="18" />
+                                                                                                                    </ActuatorCurve>
+                                                                                                                    <ActuatorCurve name="value" actuator="RWristYaw" recordable="0" mute="0" unit="0">
+                                                                                                                        <Key frame="25" value="42.3614" />
+                                                                                                                    </ActuatorCurve>
+                                                                                                                </ActuatorList>
+                                                                                                            </Timeline>
+                                                                                                        </Box>
+                                                                                                        <Link inputowner="1" indexofinput="2" outputowner="0" indexofoutput="2" />
+                                                                                                        <Link inputowner="0" indexofinput="4" outputowner="1" indexofoutput="4" />
+                                                                                                    </Diagram>
+                                                                                                </BehaviorKeyframe>
+                                                                                            </BehaviorLayer>
+                                                                                        </Timeline>
+                                                                                    </Box>
+                                                                                    <Box name="Stand Up (1)" id="8" localization="8" tooltip="the robot tries to stand up from any position for a number of tries.&#x0A;&#x0A;Note: The number of tries can be set in parameters." x="525" y="539">
+                                                                                        <bitmap>media/images/box/movement/stand.png</bitmap>
+                                                                                        <script language="4">
+                                                                                            <content>
+                                                                                                <![CDATA[]]>
+</content>
+                                                                                        </script>
+                                                                                        <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+                                                                                        <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+                                                                                        <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+                                                                                        <Output name="success" type="1" type_size="1" nature="1" inner="0" tooltip="Stimulated when the robot succeed in standing up." id="4" />
+                                                                                        <Output name="failure" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when the robot failed to stand up after n tries.&#x0A;&#x0A;Note: The number of tries can be set in parameters." id="5" />
+                                                                                        <Parameter name="Maximum of tries" inherits_from_parent="0" content_type="1" value="3" default_value="3" min="0" max="10" tooltip="The maximum number of fails of stand up before stimulating the failure output." id="6" />
+                                                                                        <Timeline enable="0">
+                                                                                            <BehaviorLayer name="StandUpBehavior">
+                                                                                                <BehaviorKeyframe name="DetectRobotPose" index="1">
+                                                                                                    <Diagram>
+                                                                                                        <Box name="Goto Posture" id="2" localization="8" tooltip="The robot goes from its current postition to the asked posture." x="331" y="92">
+                                                                                                            <bitmap>media/images/box/box-diagram.png</bitmap>
+                                                                                                            <script language="4">
+                                                                                                                <content>
+                                                                                                                    <![CDATA[class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self, False)
+
+    def onLoad(self):
+        self.nTries = 0
+        self.postureProxy = ALProxy("ALRobotPosture")
+        pass
+
+    def onUnload(self):
+        self.postureProxy.stopMove()
+
+    def onInput_onStart(self):
+        if(self.nTries != self.getParameter("Maximum of tries")):
+            self.nTries = self.getParameter("Maximum of tries")
+            self.postureProxy.setMaxTryNumber(self.nTries)
+
+        result = self.postureProxy.goToPosture(self.getParameter("Name"), self.getParameter("Speed (%)")/100.)
+        if(result):
+            self.success()
+        else:
+            self.failure()
+        pass
+
+    def onInput_onStop(self):
+        self.onUnload() #~ it is recommanded to call onUnload of this box in a onStop method, as the code written in onUnload is used to stop the box as well
+        pass]]>
+</content>
+                                                                                                            </script>
+                                                                                                            <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+                                                                                                            <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+                                                                                                            <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+                                                                                                            <Output name="success" type="1" type_size="1" nature="1" inner="0" tooltip="Stimulated if the posture has been reached." id="4" />
+                                                                                                            <Output name="failure" type="1" type_size="1" nature="1" inner="0" tooltip="Stimulated if the posture could not be reached." id="5" />
+                                                                                                            <Parameter name="Name" inherits_from_parent="0" content_type="3" value="Stand" default_value="Stand" custom_choice="1" tooltip="Name of the posture to go to." id="6">
+                                                                                                                <Choice value="Crouch" />
+                                                                                                                <Choice value="LyingBack" />
+                                                                                                                <Choice value="LyingBelly" />
+                                                                                                                <Choice value="Sit" />
+                                                                                                                <Choice value="SitRelax" />
+                                                                                                                <Choice value="StandInit" />
+                                                                                                                <Choice value="Stand" />
+                                                                                                                <Choice value="StandZero" />
+                                                                                                            </Parameter>
+                                                                                                            <Parameter name="Speed (%)" inherits_from_parent="0" content_type="1" value="80" default_value="80" min="0" max="100" tooltip="Speed to go to the posture." id="7" />
+                                                                                                            <Parameter name="Maximum of tries" inherits_from_parent="1" content_type="1" value="3" default_value="3" min="0" max="10" tooltip="The maximum number of fails of go to posture before stimulating the failure output." id="8" />
+                                                                                                            <Resource name="All motors" type="Lock" timeout="0" />
+                                                                                                            <Resource name="Stiffness" type="Lock" timeout="0" />
+                                                                                                        </Box>
+                                                                                                        <Link inputowner="2" indexofinput="2" outputowner="0" indexofoutput="2" />
+                                                                                                        <Link inputowner="0" indexofinput="4" outputowner="2" indexofoutput="4" />
+                                                                                                        <Link inputowner="0" indexofinput="5" outputowner="2" indexofoutput="5" />
+                                                                                                    </Diagram>
+                                                                                                </BehaviorKeyframe>
+                                                                                            </BehaviorLayer>
+                                                                                        </Timeline>
+                                                                                        <Resource name="All motors" type="Lock" timeout="0" />
+                                                                                    </Box>
+                                                                                    <Link inputowner="8" indexofinput="2" outputowner="4" indexofoutput="4" />
+                                                                                    <Link inputowner="4" indexofinput="2" outputowner="0" indexofoutput="2" />
+                                                                                    <Link inputowner="0" indexofinput="4" outputowner="8" indexofoutput="4" />
+                                                                                </Diagram>
+                                                                            </BehaviorKeyframe>
+                                                                        </BehaviorLayer>
+                                                                    </Timeline>
+                                                                </Box>
                                                                 <Link inputowner="13" indexofinput="2" outputowner="2" indexofoutput="6" />
                                                                 <Link inputowner="6" indexofinput="2" outputowner="7" indexofoutput="3" />
                                                                 <Link inputowner="0" indexofinput="3" outputowner="12" indexofoutput="4" />
@@ -20260,6 +20662,8 @@ class MyClass(GeneratedClass):
                                                                 <Link inputowner="7" indexofinput="2" outputowner="4" indexofoutput="5" />
                                                                 <Link inputowner="5" indexofinput="2" outputowner="2" indexofoutput="5" />
                                                                 <Link inputowner="14" indexofinput="2" outputowner="5" indexofoutput="3" />
+                                                                <Link inputowner="8" indexofinput="2" outputowner="2" indexofoutput="7" />
+                                                                <Link inputowner="3" indexofinput="2" outputowner="8" indexofoutput="4" />
                                                             </Diagram>
                                                         </BehaviorKeyframe>
                                                     </BehaviorLayer>
