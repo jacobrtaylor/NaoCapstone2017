@@ -427,7 +427,7 @@ class MyClass(GeneratedClass):
                                                                         <chinese>
                                                                             <![CDATA[]]>
 </chinese>
-                                                                        <language>7</language>
+                                                                        <language>8</language>
                                                                     </pluginContent>
                                                                     <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
                                                                     <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Data is sent on the output when this input is stimulated." id="2" />
@@ -442,9 +442,57 @@ class MyClass(GeneratedClass):
                                                 </Timeline>
                                                 <Resource name="Speech" type="Lock" timeout="0" />
                                             </Box>
+                                            <Box name="Go to position Stand" id="3" localization="8" tooltip="Robot will go to the position Stand&lt;br/&gt;Position description : Standing position with low power consumption. " x="561" y="41">
+                                                <bitmap>media/images/positions/Stand.png</bitmap>
+                                                <script language="4">
+                                                    <content>
+                                                        <![CDATA[#~ This script was generated automatically by drang&drop from Position Library
+class MyClass(GeneratedClass):
+    def __init__(self):
+        try: # disable autoBind
+          GeneratedClass.__init__(self, False)
+        except TypeError: # if NAOqi < 1.14
+          GeneratedClass.__init__( self )
+
+    def onLoad(self):
+        self.postureProxy = None
+        try:
+            self.postureProxy = ALProxy("ALRobotPosture")
+        except:
+            self.logger.error("Module 'ALRobotPosture' not found.")
+
+    def onUnload(self):
+        if(self.postureProxy != None):
+            self.postureProxy.stopMove()
+
+    def onInput_onStart(self):
+        if(self.postureProxy != None):
+            result = self.postureProxy.goToPosture("Stand", 0.8)
+            if(result):
+                self.success()
+            else:
+                self.logger.error("Posture Stand is not a part of the standard posture library or robot cannot reach the posture")
+                self.failure()
+        else:
+            self.failure()
+
+    def onInput_onStop(self):
+        self.onUnload() #~ it is recommanded to call onUnload of this box in a onStop method,               as the code written in onUnload is used to stop the box as well
+        pass]]>
+</content>
+                                                </script>
+                                                <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+                                                <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+                                                <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+                                                <Output name="success" type="1" type_size="1" nature="1" inner="0" tooltip="Stimulated if the posture has been reached." id="4" />
+                                                <Output name="failure" type="1" type_size="1" nature="1" inner="0" tooltip="Stimulated if the posture could not be reached." id="5" />
+                                                <Resource name="All motors" type="Lock" timeout="0" />
+                                                <Resource name="Stiffness" type="Lock" timeout="0" />
+                                            </Box>
                                             <Link inputowner="2" indexofinput="2" outputowner="0" indexofoutput="2" />
                                             <Link inputowner="1" indexofinput="2" outputowner="0" indexofoutput="3" />
-                                            <Link inputowner="0" indexofinput="4" outputowner="1" indexofoutput="4" />
+                                            <Link inputowner="3" indexofinput="2" outputowner="1" indexofoutput="4" />
+                                            <Link inputowner="0" indexofinput="4" outputowner="3" indexofoutput="4" />
                                         </Diagram>
                                     </BehaviorKeyframe>
                                 </BehaviorLayer>
