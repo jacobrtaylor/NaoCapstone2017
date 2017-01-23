@@ -1,0 +1,28 @@
+To the east is a massive gorilla!
+Would you like to pet the gorilla, sneak past the gorilla, or feed the gorilla a banana?
+--> Banana
+The gorilla is allergic to bananas! (Achoo!) He pounds you into the ground. You have died. You lose. Would you like to play again?
+RESULT: Game Over
+--> Sneak
+The gorilla notices you! He picks you up, tosses you into the previous room, and locks the door.
+RESULT: Back to starting room, can only pick North or West.
+--> Pet the gorilla
+The gorilla is happy that you pet him! He opens the door to the next room for you.
+
+--> Room B1
+There is a massive pit of spikes! A shaky tightrope connects your side to the next. Do you want to jump across the pit, fall into the pit, or walk on the tightrope?
+-->Jump 
+You jump with all your might and hit your head on the ceiling! You land on the other side, but you are very dizzy.
+-->Tightrope
+Slowly but surely, you work your way across the tightrope. You make it to the other side safely.
+-->Fall
+You decide to fall into the pit of your own accord. Game over.
+
+--> Room C1
+You arrive in a room with a table full of potions! There is a massive door made out of solid iron. One potion says big, one potion says small, and one potion says poison. Which potion do you drink?
+--> Big
+You become a giant and start beating the door! But suddenly the door wakes up - it's alive! It responds by killing you.
+--> Small
+You become the size of an ant! You are able to crawl under the door.
+--> Poison
+You die, but you become a ghost! You are able to float right out of the dungeon. Congratulations - you win!
