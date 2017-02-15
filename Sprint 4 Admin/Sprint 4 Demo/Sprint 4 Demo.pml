@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Package name="Sprint 3 Demo" format_version="4">
+<Package name="Sprint 4 Demo" format_version="4">
     <Manifest src="manifest.xml" />
     <BehaviorDescriptions>
         <BehaviorDescription name="behavior" src="behavior_1" xar="behavior.xar" />
@@ -27,7 +27,7 @@
         <File name="wookie" src="behavior_1/wookie.wav" />
         <File name="xwing" src="behavior_1/xwing.wav" />
         <File name="ChknDance" src="behavior_1/Aldebaran/ChknDance.wav" />
-        <File name="ChknDance" src="behavior_1/ChknDance.wav" />
+        <File name="Chicken Dance Music.mpg" src="Chicken Dance Music.mpg.mp3" />
     </Resources>
     <Topics />
     <IgnoredPaths />
