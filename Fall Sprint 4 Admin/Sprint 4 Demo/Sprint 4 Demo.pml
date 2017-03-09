@@ -27,7 +27,7 @@
         <File name="wookie" src="behavior_1/wookie.wav" />
         <File name="xwing" src="behavior_1/xwing.wav" />
         <File name="ChknDance" src="behavior_1/Aldebaran/ChknDance.wav" />
-        <File name="Chicken Dance Music.mpg" src="Chicken Dance Music.mpg.mp3" />
+        <File name="ChknDance" src="behavior_1/ChknDance.wav" />
     </Resources>
     <Topics />
     <IgnoredPaths />
