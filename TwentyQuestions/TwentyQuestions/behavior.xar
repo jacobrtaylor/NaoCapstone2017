@@ -209,7 +209,7 @@ class MyClass(GeneratedClass):
                                                     <chinese>
                                                         <![CDATA[]]>
 </chinese>
-                                                    <language>5</language>
+                                                    <language>6</language>
                                                 </pluginContent>
                                                 <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
                                                 <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Data is sent on the output when this input is stimulated." id="2" />
@@ -7442,7 +7442,7 @@ class MyClass(GeneratedClass):
                                                     <chinese>
                                                         <![CDATA[]]>
 </chinese>
-                                                    <language>12</language>
+                                                    <language>13</language>
                                                 </pluginContent>
                                                 <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
                                                 <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Data is sent on the output when this input is stimulated." id="2" />
@@ -7460,7 +7460,7 @@ class MyClass(GeneratedClass):
                             <Resource name="Speech" type="Lock" timeout="0" />
                             <Resource name="Speech recognition" type="Lock" timeout="0" />
                         </Box>
-                        <Box name="Python Script" id="5" localization="8" tooltip="This box contains a basic python script and can be used to create any python script box you would like.&#x0A;&#x0A;To edit its script, double-click on it." x="593" y="71">
+                        <Box name="Python Script" id="5" localization="8" tooltip="This box contains a basic python script and can be used to create any python script box you would like.&#x0A;&#x0A;To edit its script, double-click on it." x="599" y="96">
                             <bitmap>media/images/box/box-python-script.png</bitmap>
                             <script language="4">
                                 <content>
@@ -7475,20 +7475,8 @@ class MyClass(GeneratedClass):
         self.asr.setVocabulary(["yes","no"],False)
         self.memory = ALProxy("ALMemory")
         self.bmp = ALProxy('ALBehaviorManager')
-        self.bmp.addDefaultBehavior("FingerWag")
-        self.bmp.addDefaultBehavior("FootTap")
-        self.bmp.addDefaultBehavior("HeadScratch")
-        self.bmp.addDefaultBehavior("Car")
-        self.bmp.addDefaultBehavior("Cat")
-        self.bmp.addDefaultBehavior("Cow")
-        self.bmp.addDefaultBehavior("Dog")
-        self.bmp.addDefaultBehavior("Eagle")
-        self.bmp.addDefaultBehavior("Elephant")
-        self.bmp.addDefaultBehavior("Lion")
-        self.bmp.addDefaultBehavior("Microwave")
-        self.bmp.addDefaultBehavior("Rattlesnake")
-        self.bmp.addDefaultBehavior("Submarine")
-        self.bmp.addDefaultBehavior("Whale")
+
+        self.behaviors = ["Stand/Gestures/Explain_3","Stand/Gestures/Explain_7","Stand/Gestures/Explain_8","Stand/Gestures/Explain_1","Stand/Gestures/Explain_2","Stand/Gestures/Explain_4"]
 
 
     def onLoad(self):
@@ -7503,11 +7491,11 @@ class MyClass(GeneratedClass):
     def onInput_onStart(self):
         dog = Option("a dog", "Dog", "fur", "yes", ". on land", "yes", "four legs?...", None, None, None)
         cat = Option("a cat", "Cat", "fur", "yes", ". on land", "yes", "four legs?...", None, None, None)
-        elephant = Option("a elephant", "Elephant", "skin", "no", ". on land", "yes", "four legs?...", None, None, None)
+        elephant = Option("a elephant", "Elephant", None, "no", ". on land", "yes", "four legs?...", None, None, None)
         lion = Option("a lion", "Lion", "fur", "no", ". on land", "yes", "four legs?...", None, None, None)
         cow = Option("a cuh ow", "Cow", "fur", "no", ". on land", "yes", "four legs?...", None, None, None)
-        whale = Option("a whale", "Whale", "skin", "no", "in the water", "yes", None, None, None, None)
-        shark = Option("a shark", None, "skin", "no", "in the water", "yes", None, None, None, None)
+        whale = Option("a whale", "Whale", None, "no", "in the water", "yes", None, None, None, None)
+        shark = Option("a shark", None, None, "no", "in the water", "yes", None, None, None, None)
         fish = Option("a fish", None, "scales", "yes", "in the water", "yes",  None, None, None, None)
         snake = Option("a rattlesnake", "Rattlesnake", "scales", "yes", ". on land", "yes", None, None, None, None)
         eagle = Option("an eagle", "Eagle", "fehthers", "no", ". on land", "yes", "two legs?",  None, None, None)
@@ -7580,6 +7568,8 @@ class MyClass(GeneratedClass):
 
             if numQuestions == 5:
                 self.bmp.runBehavior("FootTap")
+
+            self.bmp.startBehavior(random.choice(self.behaviors))
 
             if question == "sound":
                 self.tts.say("Does it make this sound?")
@@ -7679,7 +7669,7 @@ class MyClass(GeneratedClass):
                     print (tempOptions)
 
             else:
-                self.tts.say("Is it something you can ware?")
+                self.tts.say("Is it something you. can ware?")
                 answer = self.getAnswer()
 
                 if answer == "yes":
@@ -7700,13 +7690,18 @@ class MyClass(GeneratedClass):
             self.tts.say("Is it " + str(guess))
             answer = self.getAnswer()
             if answer == "yes":
-                self.tts.say("Yay! I win!")
+                self.bmp.runBehavior("Stand/Emotions/Positive/Interested_2")
+                self.tts.say("I win!")
             else:
-                self.tts.say("Hmm, then I don't know. Make sure you answer correctly!")
+                self.bmp.startBehavior("Stand/Emotions/Neutral/Confused_1")
+                time.sleep(2)
+                self.tts.say("What! Really? Are you sure you answered correctly?")
+                time.sleep(1)
+                self.tts.say("I guess you win.")
+
 
         else:
-            self.tts.say("Hmm, then I don't know. Make sure you answer correctly!")
-
+            self.tts.say("Huh, I don't know then. Are you sure you answered correctly?")
 
 class Option(object):
     def __init__(self, species, sound, skin, pet, found, alive, legs, cooking, electric, worn):
@@ -7800,7 +7795,7 @@ class Option(object):
                             <Parameter name="Timeout (s)" inherits_from_parent="0" content_type="2" value="2" default_value="1" min="0" max="5000" tooltip="Duration the box waits before stimulating the output." id="5" />
                             <Parameter name="Trigger timerOutput if cancelled" inherits_from_parent="0" content_type="0" value="0" default_value="1" tooltip="If the box is currently waiting and cancelled, output will be stimulated." id="6" />
                         </Box>
-                        <Box name="Choice (1)" id="2" localization="8" tooltip="The Choice box is based on the speech recognition engine: it expects a defined number of predicted answers . The box&#x0A;includes interactive help during the behavior thanks to the head tactile sensor. The recognized answer is sent to the answer output.&#x0A;&#x0A;Note that you must open this box to enter the question text and the&#x0A;available answers." x="732" y="71">
+                        <Box name="Choice (1)" id="2" localization="8" tooltip="The Choice box is based on the speech recognition engine: it expects a defined number of predicted answers . The box&#x0A;includes interactive help during the behavior thanks to the head tactile sensor. The recognized answer is sent to the answer output.&#x0A;&#x0A;Note that you must open this box to enter the question text and the&#x0A;available answers." x="828" y="72">
                             <bitmap>media/images/box/interaction/choice.png</bitmap>
                             <script language="4">
                                 <content>
@@ -15018,7 +15013,7 @@ class MyClass(GeneratedClass):
                                                     <chinese>
                                                         <![CDATA[]]>
 </chinese>
-                                                    <language>12</language>
+                                                    <language>13</language>
                                                 </pluginContent>
                                                 <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
                                                 <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Data is sent on the output when this input is stimulated." id="2" />
@@ -15230,7 +15225,7 @@ class MyClass(GeneratedClass):
                                                     <chinese>
                                                         <![CDATA[]]>
 </chinese>
-                                                    <language>5</language>
+                                                    <language>6</language>
                                                 </pluginContent>
                                                 <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
                                                 <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Data is sent on the output when this input is stimulated." id="2" />
@@ -15245,15 +15240,63 @@ class MyClass(GeneratedClass):
                             </Timeline>
                             <Resource name="Speech" type="Lock" timeout="0" />
                         </Box>
+                        <Box name="Go to position Stand" id="7" localization="8" tooltip="Robot will go to the position Stand&lt;br/&gt;Position description : Standing position with low power consumption. " x="711" y="95">
+                            <bitmap>media/images/positions/Stand.png</bitmap>
+                            <script language="4">
+                                <content>
+                                    <![CDATA[#~ This script was generated automatically by drang&drop from Position Library
+class MyClass(GeneratedClass):
+    def __init__(self):
+        try: # disable autoBind
+          GeneratedClass.__init__(self, False)
+        except TypeError: # if NAOqi < 1.14
+          GeneratedClass.__init__( self )
+
+    def onLoad(self):
+        self.postureProxy = None
+        try:
+            self.postureProxy = ALProxy("ALRobotPosture")
+        except:
+            self.logger.error("Module 'ALRobotPosture' not found.")
+
+    def onUnload(self):
+        if(self.postureProxy != None):
+            self.postureProxy.stopMove()
+
+    def onInput_onStart(self):
+        if(self.postureProxy != None):
+            result = self.postureProxy.goToPosture("Stand", 0.8)
+            if(result):
+                self.success()
+            else:
+                self.logger.error("Posture Stand is not a part of the standard posture library or robot cannot reach the posture")
+                self.failure()
+        else:
+            self.failure()
+
+    def onInput_onStop(self):
+        self.onUnload() #~ it is recommanded to call onUnload of this box in a onStop method,               as the code written in onUnload is used to stop the box as well
+        pass]]>
+</content>
+                            </script>
+                            <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+                            <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+                            <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+                            <Output name="success" type="1" type_size="1" nature="1" inner="0" tooltip="Stimulated if the posture has been reached." id="4" />
+                            <Output name="failure" type="1" type_size="1" nature="1" inner="0" tooltip="Stimulated if the posture could not be reached." id="5" />
+                            <Resource name="All motors" type="Lock" timeout="0" />
+                            <Resource name="Stiffness" type="Lock" timeout="0" />
+                        </Box>
                         <Link inputowner="3" indexofinput="2" outputowner="1" indexofoutput="4" />
                         <Link inputowner="6" indexofinput="2" outputowner="3" indexofoutput="5" />
                         <Link inputowner="3" indexofinput="2" outputowner="6" indexofoutput="4" />
                         <Link inputowner="1" indexofinput="2" outputowner="0" indexofoutput="2" />
-                        <Link inputowner="2" indexofinput="2" outputowner="5" indexofoutput="4" />
                         <Link inputowner="3" indexofinput="2" outputowner="2" indexofoutput="4" />
                         <Link inputowner="0" indexofinput="4" outputowner="2" indexofoutput="5" />
                         <Link inputowner="4" indexofinput="2" outputowner="3" indexofoutput="4" />
                         <Link inputowner="5" indexofinput="2" outputowner="4" indexofoutput="4" />
+                        <Link inputowner="7" indexofinput="2" outputowner="5" indexofoutput="4" />
+                        <Link inputowner="2" indexofinput="2" outputowner="7" indexofoutput="4" />
                     </Diagram>
                 </BehaviorKeyframe>
             </BehaviorLayer>
