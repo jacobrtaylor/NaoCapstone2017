@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="java-naoqi-sdk-2.4.3.28-win32-vs2010">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../java-naoqi-sdk-2.4.3.28-win32-vs2010.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
