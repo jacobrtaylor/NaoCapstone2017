@@ -223,7 +223,7 @@ class MyClass(GeneratedClass):
                                                                         <chinese>
                                                                             <![CDATA[]]>
 </chinese>
-                                                                        <language>7</language>
+                                                                        <language>9</language>
                                                                     </pluginContent>
                                                                     <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
                                                                     <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Data is sent on the output when this input is stimulated." id="2" />
@@ -7456,7 +7456,7 @@ class MyClass(GeneratedClass):
                                                                         <chinese>
                                                                             <![CDATA[]]>
 </chinese>
-                                                                        <language>14</language>
+                                                                        <language>16</language>
                                                                     </pluginContent>
                                                                     <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
                                                                     <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Data is sent on the output when this input is stimulated." id="2" />
@@ -7516,7 +7516,7 @@ class MyClass(GeneratedClass):
         toaster = Option("a toe stir", None, "metal", None, "in the kitchen", "no", None, "yes", "yes", "no")
         microwave = Option("a micro wave", "Microwave", "plastic", None, "in the kitchen", "no", None, "yes", "yes", "no")
         shirt = Option("a shirt", None, None, None, "in a dresser", "no", None, "no", "no", "yes")
-        nao = Option("me", None, "plastic", None, "in front of you", "no", "two legs?", "no", "yes", "no")
+        nao = Option("me", None, "plastic", None, "on the table in front of you?", "no", "two legs?", "no", "yes", "no")
         pants = Option("a pear of pants", None, None, None, "in a dresser", "no", "two legs?", "no", "no", "yes")
         tv = Option("a tv", None, None, None, "in the living room", "no", None, "no", "yes", "no")
         submarine = Option("a sub-marine", "Submarine", "metal", None, "in the water", "no", None, "no", "no", "no")
@@ -7683,7 +7683,7 @@ class MyClass(GeneratedClass):
                     print (tempOptions)
 
             else:
-                self.tts.say("Is it something you. can ware?")
+                self.tts.say("Is it something you wear?")
                 answer = self.getAnswer()
 
                 if answer == "yes":
@@ -8003,7 +8003,7 @@ class MyClass(GeneratedClass):
                                                                         <chinese>
                                                                             <![CDATA[]]>
 </chinese>
-                                                                        <language>7</language>
+                                                                        <language>9</language>
                                                                     </pluginContent>
                                                                     <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
                                                                     <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Data is sent on the output when this input is stimulated." id="2" />
@@ -15283,7 +15283,7 @@ class MyClass(GeneratedClass):
                                                                         <chinese>
                                                                             <![CDATA[]]>
 </chinese>
-                                                                        <language>14</language>
+                                                                        <language>16</language>
                                                                     </pluginContent>
                                                                     <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
                                                                     <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Data is sent on the output when this input is stimulated." id="2" />

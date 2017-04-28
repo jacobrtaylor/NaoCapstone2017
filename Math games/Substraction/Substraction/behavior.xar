@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ChoregrapheProject xmlns="http://www.aldebaran-robotics.com/schema/choregraphe/project.xsd" xar_version="3">
+    <Box name="root" id="-1" localization="8" tooltip="Root box of Choregraphe&apos;s behavior. Highest level possible." x="0" y="0">
+        <bitmap>media/images/box/root.png</bitmap>
+        <script language="4">
+            <content>
+                <![CDATA[]]>
+</content>
+        </script>
+        <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+        <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+        <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+        <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" />
+        <Timeline enable="0">
+            <BehaviorLayer name="behavior_layer1">
+                <BehaviorKeyframe name="keyframe1" index="1">
+                    <Diagram>
+                        <Box name="Substract game" id="1" localization="8" tooltip="This box contains a basic python script and can be used to create any python script box you would like.&#x0A;&#x0A;To edit its script, double-click on it." x="261" y="116">
+                            <bitmap>media/images/box/box-python-script.png</bitmap>
+                            <script language="4">
+                                <content>
+                                    <![CDATA[from random import randint
+class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self)
+
+    def onLoad(self):
+        #put initialization code here
+        pass
+
+    def onUnload(self):
+        #put clean-up code here
+        try:
+            self.asr.unsubscribe("Question")
+        except RuntimeError:
+            pass
+
+    def onInput_onStart(self):
+        #self.onStopped() #activate the output of the box
+        self.tts = ALProxy('ALTextToSpeech')
+        self.asr = ALProxy('ALSpeechRecognition')
+        self.asr.setLanguage("English")
+        self.asr.setVocabulary(["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"],False)
+        self.memory = ALProxy("ALMemory")
+        self.Substract()
+
+        self.onInput_onStop()
+
+    def onInput_onStop(self):
+        self.onUnload() #it is recommended to reuse the clean-up as the box is stopped
+        self.onStopped() #activate the output of the box
+
+    def getAnswer(self):
+
+        word = ""
+        while word == "":
+            self.asr.subscribe("Question")
+            time.sleep(3)
+            word = self.memory.getData("WordRecognized")
+
+        return word[0]
+
+    def Substract(self):
+        a = randint(0, 20)
+        b = randint(0, 20)
+        test = a - b
+
+        while test < 0:
+            a = randint(0, 20)
+            b = randint(0, 20)
+            test = a - b
+
+        self.tts.say("What is " + repr(a) + " minus " + repr(b) + "?")
+        answer = self.getAnswer()
+
+        correct = 0;
+        while correct == 0:
+            try:
+                while int(answer) != int(test):
+                    self.tts.say("Incorect! Please try again")
+                    self.tts.say("Perhaps you did not understand my question. What is " + repr(a) + " minus " + repr(b) + "?")
+                    answer = self.getAnswer()
+                self.tts.say("You are correct! Great job!")
+                correct = 1
+            except ValueError:
+               pass]]>
+</content>
+                            </script>
+                            <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+                            <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+                            <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+                            <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" />
+                        </Box>
+                        <Link inputowner="1" indexofinput="2" outputowner="0" indexofoutput="2" />
+                        <Link inputowner="0" indexofinput="4" outputowner="1" indexofoutput="4" />
+                    </Diagram>
+                </BehaviorKeyframe>
+            </BehaviorLayer>
+        </Timeline>
+    </Box>
+</ChoregrapheProject>
