@@ -9,12 +9,16 @@
 //////////////////////////////////////////////////////////////////////////////
 
 import java.awt.*;
+
 import java.awt.event.*;
 import java.io.*;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.swing.*;
 import javax.swing.event.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.aldebaran.qi.*;
 import com.aldebaran.qi.helper.*;
@@ -62,6 +66,11 @@ public class NaoMarks extends JFrame
 	buildGui();
   }
 
+  //CHANGES: Added getter for the status area
+  public JTextArea getStatusArea() {
+	  return this.m_taStatus;
+  }
+  
   //CHANGES: Added getIP() function
   public String getIP() {
 		final JFrame frame = new JFrame();
@@ -162,7 +171,9 @@ public class NaoMarks extends JFrame
       startImageRetrievalThread();
 
       // Start a thread to show some help if no landmarks are found.
-      startLandmarkHelpThread();
+
+      //CHANGES: Commented out the help thread, because it's annoying.
+      //startLandmarkHelpThread();
 
       // Start a thread to move the head to scan for landmarks.
       startScanThread();
@@ -411,7 +422,158 @@ public class NaoMarks extends JFrame
     m_taStatus.append(baos.toString());
     m_taStatus.setCaretPosition(m_taStatus.getText().length());
   }
+  
+  //CHANGES: Added a logging function to handle timestamping and logging behavior runs
+  private void logButton(String s){
+	    SimpleDateFormat df = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+	    Timestamp ts = new Timestamp(System.currentTimeMillis());
+	    String text = df.format(ts) + ": " + s + "\n";
+	    m_taStatus.append(text);
+	    m_taStatus.setCaretPosition(m_taStatus.getDocument().getLength());
+  }
+  
+  //CHANGES: Added 'addButtons' function
+  private JPanel addButtons(JPanel sp1) {
+	    JButton b1 = new JButton("1 Correct");
+	    b1.setVerticalTextPosition(AbstractButton.CENTER);
+	    b1.setHorizontalTextPosition(AbstractButton.LEADING);
+	    // Use mnemonic for Alt hotkeys
+	    b1.setMnemonic(KeyEvent.VK_1);
+	    b1.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				try {
+					new ALBehaviorManager(m_session).runBehavior("DFBL_1_Correct");
+					logButton("One correct.");
+		          } catch (Exception ex) {
+		            handleException(ex);
+		        }
+			}
+		});
+	    
+	    JButton b2 = new JButton("2 Correct");
+	    b2.setVerticalTextPosition(AbstractButton.CENTER);
+	    b2.setHorizontalTextPosition(AbstractButton.LEADING);
+	    // Use mnemonic for Alt hotkeys
+	    b2.setMnemonic(KeyEvent.VK_2);
+	    b2.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				try {
+					new ALBehaviorManager(m_session).runBehavior("DFBL_2_Correct");
+					logButton("Two correct.");
+		          } catch (Exception ex) {
+		            handleException(ex);
+		        }
+			}
+		});
+	    
+	    JButton b3 = new JButton("3 Correct");
+	    b3.setVerticalTextPosition(AbstractButton.CENTER);
+	    b3.setHorizontalTextPosition(AbstractButton.LEADING);
+	    // Use mnemonic for Alt hotkeys
+	    b3.setMnemonic(KeyEvent.VK_3);
+	    b3.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				try {
+					new ALBehaviorManager(m_session).runBehavior("DFBL_3_Correct");
+					logButton("Three correct.");
+		          } catch (Exception ex) {
+		            handleException(ex);
+		        }
+			}
+		});
+	    
+	    JButton b4 = new JButton("4 Correct");
+	    b4.setVerticalTextPosition(AbstractButton.CENTER);
+	    b4.setHorizontalTextPosition(AbstractButton.LEADING);
+	    // Use mnemonic for Alt hotkeys
+	    b4.setMnemonic(KeyEvent.VK_4);
+	    b4.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				try {
+					new ALBehaviorManager(m_session).runBehavior("DFBL_4_Correct");
+					logButton("Four correct.");
+		          } catch (Exception ex) {
+		            handleException(ex);
+		        }
+			}
+		});
+	    
+	    JButton b5 = new JButton("0 Correct");
+	    b5.setVerticalTextPosition(AbstractButton.CENTER);
+	    b5.setHorizontalTextPosition(AbstractButton.LEADING);
+	    // Use mnemonic for Alt hotkeys
+	    b5.setMnemonic(KeyEvent.VK_5);
+	    b5.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				try {
+					new ALBehaviorManager(m_session).runBehavior("DFBL_0_Correct");
+					logButton("None correct.");
+		          } catch (Exception ex) {
+		            handleException(ex);
+		        }
+			}
+		});
+	    
+	    JButton b6 = new JButton("Yes");
+	    b6.setVerticalTextPosition(AbstractButton.CENTER);
+	    b6.setHorizontalTextPosition(AbstractButton.LEADING);
+	    // Use mnemonic for Alt hotkeys
+	    b6.setMnemonic(KeyEvent.VK_Y);
+	    b6.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				try {
+					new ALBehaviorManager(m_session).runBehavior("DFBL_Yes");
+					logButton("Yes.");
+		          } catch (Exception ex) {
+		            handleException(ex);
+		        }
+			}
+		});
 
+	    JButton b7 = new JButton("No");
+	    b7.setVerticalTextPosition(AbstractButton.CENTER);
+	    b7.setHorizontalTextPosition(AbstractButton.LEADING);
+	    // Use mnemonic for Alt hotkeys
+	    b7.setMnemonic(KeyEvent.VK_N);
+	    b7.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				try {
+					new ALBehaviorManager(m_session).runBehavior("DFBL_No");
+					logButton("No.");
+		          } catch (Exception ex) {
+		            handleException(ex);
+		        }
+			}
+		});
+
+	    // Add all buttons to the sub-panel and return it
+
+	    sp1.add(b1);
+	    sp1.add(b2);
+	    sp1.add(b3);
+	    sp1.add(b4);
+	    sp1.add(b5);
+	    sp1.add(b6);
+	    sp1.add(b7);
+	    
+	    return sp1;
+  }
+  // end change
+  
   private void buildGui() {
     Container   cp;
     JPanel      p1;
@@ -437,11 +599,21 @@ public class NaoMarks extends JFrame
     cp.add(p1,
            BorderLayout.SOUTH);
 
-    m_pnlText = new TextPanel();
+    // CHANGES: Added 'this' to TextPanel constructor
+    m_pnlText = new TextPanel(this);
     m_pnlText.addListener(this);
     p1.add(m_pnlText,
-           BorderLayout.NORTH);
+           BorderLayout.CENTER);
 
+    //CHANGES: Added buttons to the UI
+    // Add buttons to p1 in this area.  
+    JPanel sp1 = new JPanel();
+    sp1 = addButtons(sp1);
+
+    // Add the sub-panel to p1
+    p1.add(sp1, BorderLayout.NORTH);
+    // end change
+    
     m_taStatus = new JTextArea(5,
                                40);
     m_taStatus.setEditable(false);
@@ -465,14 +637,47 @@ public class NaoMarks extends JFrame
         new Thread(new Runnable() {
           @Override
           public void run() {
+        	//CHANGES: Added writer object
+          	BufferedWriter writer = null;
+          	// end change
             try {
+            	//CHANGES: Added logging of the status panel to a text file on close.            	
+            	UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            	JFileChooser choochoo = new JFileChooser();
+            	File wd = new File(System.getProperty("user.dir"));
+            	choochoo.setCurrentDirectory(wd);
+            	choochoo.setFileFilter(new FileNameExtensionFilter("*.txt", "txt"));
+            	choochoo.setDialogType(JFileChooser.SAVE_DIALOG);
+            	int rval = choochoo.showOpenDialog(null);
+            	if (rval == JFileChooser.APPROVE_OPTION){
+                	File logfile = choochoo.getSelectedFile();
+
+                	if (!logfile.toString().endsWith(".txt")){
+                		logfile = new File(logfile.getPath() + ".txt");
+                	}
+                	
+                	writer = new BufferedWriter(new FileWriter(logfile));
+                	// Get the contents of the status panel
+                	String content = m_taStatus.getText();
+                	content = content.replaceAll("(?!\\r)\\n", "\r\n");
+                	// Write the contents of the status panel to the file
+                	writer.write(content);
+            	}           	
+            	//end change
+            	
               // Have Rufus return to the stand posture when the window is
               // closed.
-            	// CHANGES: Changed position to resting
+            	// CHANGES: Changed position to resting to protect motors
             	new ALMotion(m_session).rest();
             } catch (Exception e) {
               // Ignore errors since the application is already closing.
             } finally {
+              //CHANGES: Added line for closing the writer
+              try{ 
+            	  writer.close();
+              } catch (Exception e){
+              }
+              // end change
               System.exit(0);
             }
           }
@@ -521,12 +726,13 @@ public class NaoMarks extends JFrame
     	public void actionPerformed(ActionEvent event) {
     		try {
 				new ALMotion(m_session).rest();
+				logButton("Went to resting position.");
 			} catch (Exception e) {
 				handleException(e);
 			}
     	}
     });
-    menu.add(crouch);
+
     JMenuItem stand = new JMenuItem("Stand");
     stand.addActionListener(new ActionListener() {
     	@Override
@@ -534,12 +740,13 @@ public class NaoMarks extends JFrame
     		try {
               new ALRobotPosture(m_session).goToPosture("Stand",
                                                         0.25f);
+              logButton("Went to standing position.");
             } catch (Exception e) {
               handleException(e);
             }
     	}
     });
-    menu.add(stand);
+    
     JMenuItem sit = new JMenuItem("Sit");
     sit.addActionListener(new ActionListener() {
     	@Override
@@ -547,12 +754,13 @@ public class NaoMarks extends JFrame
     		try {
               new ALRobotPosture(m_session).goToPosture("Sit",
                                                         0.25f);
+              logButton("Went to sitting position.");
             } catch (Exception e) {
               handleException(e);
             }
     	}
     });
-    menu.add(sit);
+    
     JMenuItem sitrelaxed = new JMenuItem("Sit Relaxed");
     sitrelaxed.addActionListener(new ActionListener() {
     	@Override
@@ -560,27 +768,107 @@ public class NaoMarks extends JFrame
     		try {
               new ALRobotPosture(m_session).goToPosture("SitRelax",
                                                         0.25f);
+              logButton("Went to relaxed sitting position.");
             } catch (Exception e) {
               handleException(e);
             }
     	}
     });
+    
+    menu.add(crouch);
+    menu.add(stand);
+    menu.add(sit);
     menu.add(sitrelaxed);
-    JMenuItem fun = new JMenuItem("Fun");
-    fun.addActionListener(new ActionListener() {
+    // End change
+    
+    //CHANGES: Added prompts menu item
+    menuBar.add(menu = new JMenu("Prompts"));
+    JMenuItem p1 = new JMenuItem("Prompt 1");
+    // Create keystroke item for use in setAccelerator (hotkey)
+    KeyStroke c1 = KeyStroke.getKeyStroke(KeyEvent.VK_1, Toolkit.getDefaultToolkit ().getMenuShortcutKeyMask());
+    p1.setAccelerator(c1);
+    p1.addActionListener(new ActionListener() {
     	@Override
     	public void actionPerformed(ActionEvent event) {
     		try {
-    			new ALBehaviorManager(m_session).runBehavior("star wars");
-    		}
-    		catch (Exception e) {
-    			handleException(e);
-    		}
+				new ALBehaviorManager(m_session).runBehavior("DFBL_Beh_1");
+				logButton("Ran prompt 1.");
+			} catch (Exception e) {
+				handleException(e);
+			}
     	}
     });
-    menu.add(fun);
     
-    // End change
+    JMenuItem p2 = new JMenuItem("Prompt 2");
+    // Create keystroke item for use in setAccelerator (hotkey)
+    KeyStroke c2 = KeyStroke.getKeyStroke(KeyEvent.VK_2, Toolkit.getDefaultToolkit ().getMenuShortcutKeyMask());
+    p2.setAccelerator(c2);
+    p2.addActionListener(new ActionListener() {
+    	@Override
+    	public void actionPerformed(ActionEvent event) {
+    		try {
+				new ALBehaviorManager(m_session).runBehavior("DFBL_Beh_2");
+				logButton("Ran prompt 2.");
+			} catch (Exception e) {
+				handleException(e);
+			}
+    	}
+    });
+    
+    JMenuItem p3 = new JMenuItem("Prompt 3");
+    // Create keystroke item for use in setAccelerator (hotkey)
+    KeyStroke c3 = KeyStroke.getKeyStroke(KeyEvent.VK_3, Toolkit.getDefaultToolkit ().getMenuShortcutKeyMask());
+    p3.setAccelerator(c3);
+    p3.addActionListener(new ActionListener() {
+    	@Override
+    	public void actionPerformed(ActionEvent event) {
+    		try {
+				new ALBehaviorManager(m_session).runBehavior("DFBL_Beh_3");
+				logButton("Ran prompt 3.");
+			} catch (Exception e) {
+				handleException(e);
+			}
+    	}
+    });
+    
+    JMenuItem p4 = new JMenuItem("Prompt 4");
+    // Create keystroke item for use in setAccelerator (hotkey)
+    KeyStroke c4 = KeyStroke.getKeyStroke(KeyEvent.VK_4, Toolkit.getDefaultToolkit ().getMenuShortcutKeyMask());
+    p4.setAccelerator(c4);
+    p4.addActionListener(new ActionListener() {
+    	@Override
+    	public void actionPerformed(ActionEvent event) {
+    		try {
+				new ALBehaviorManager(m_session).runBehavior("DFBL_Beh_4");
+				logButton("Ran prompt 4.");
+			} catch (Exception e) {
+				handleException(e);
+			}
+    	}
+    });
+    
+    JMenuItem p5 = new JMenuItem("Prompt 5");
+    // Create keystroke item for use in setAccelerator (hotkey)
+    KeyStroke c5 = KeyStroke.getKeyStroke(KeyEvent.VK_5, Toolkit.getDefaultToolkit ().getMenuShortcutKeyMask());
+    p5.setAccelerator(c5);
+    p5.addActionListener(new ActionListener() {
+    	@Override
+    	public void actionPerformed(ActionEvent event) {
+    		try {
+				new ALBehaviorManager(m_session).runBehavior("DFBL_Beh_5");
+				logButton("Completed study.");
+			} catch (Exception e) {
+				handleException(e);
+			}
+    	}
+    });
+    
+    menu.add(p1);
+    menu.add(p2);
+    menu.add(p3);
+    menu.add(p4);
+    menu.add(p5);
+    // end change
     
     menuBar.add(Box.createHorizontalGlue());
 

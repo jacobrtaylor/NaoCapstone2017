@@ -1,0 +1,14 @@
+2017.05.01.19.06.22: Connected.
+2017.05.01.19.06.35: All planned functions implemented test.
+2017.05.01.19.06.40: One correct.
+2017.05.01.19.06.43: Two correct.
+2017.05.01.19.06.45: Three correct.
+2017.05.01.19.06.48: Four correct.
+2017.05.01.19.06.50: None correct.
+2017.05.01.19.06.52: Yes.
+2017.05.01.19.06.54: No.
+2017.05.01.19.06.59: Ran prompt 1.
+2017.05.01.19.07.06: Ran prompt 2.
+2017.05.01.19.07.13: Ran prompt 3.
+2017.05.01.19.07.22: Ran prompt 4.
+2017.05.01.19.07.36: Completed study.

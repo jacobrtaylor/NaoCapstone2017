@@ -15,6 +15,9 @@ import java.util.*;
 import javax.swing.*;
 
 import common.*;
+// CHANGES: Added imports to support timestamp
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 /****************************************************************************
  * This panel allows the user to input text to be sent to a listener (which
@@ -25,8 +28,13 @@ import common.*;
 public class TextPanel extends JPanel implements ActionListener {
   private final ArrayList<Listener> LISTENERS = new ArrayList<>();
   private JTextField m_tfText;
+  
+  // CHANGES: Added reference to JFrame in constructor, and date formatter
+  private static final SimpleDateFormat df = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
 
-  public TextPanel() {
+  private NaoMarks parent;
+  public TextPanel(NaoMarks f) {
+	parent = f;
     buildGui();
   }
 
@@ -38,6 +46,13 @@ public class TextPanel extends JPanel implements ActionListener {
     for (Listener l : LISTENERS) {
       l.hearText(m_tfText.getText());
     }
+    
+    // CHANGES: Set text to blank after input, and log text input to the text area.
+    Timestamp ts = new Timestamp(System.currentTimeMillis());
+    String text = df.format(ts) + ": " + m_tfText.getText() + "\n";
+    parent.getStatusArea().append(text);
+    parent.getStatusArea().setCaretPosition(parent.getStatusArea().getDocument().getLength());
+
     m_tfText.setText("");
   }
 
