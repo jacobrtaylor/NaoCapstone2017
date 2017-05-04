@@ -15,7 +15,7 @@
             <BehaviorLayer name="behavior_layer1">
                 <BehaviorKeyframe name="keyframe1" index="1">
                     <Diagram>
-                        <Box name="Multiplication game" id="1" localization="8" tooltip="This box contains a basic python script and can be used to create any python script box you would like.&#x0A;&#x0A;To edit its script, double-click on it." x="311" y="111">
+                        <Box name="Multiplication game" id="1" localization="8" tooltip="This box contains a basic python script and can be used to create any python script box you would like.&#x0A;&#x0A;To edit its script, double-click on it." x="400" y="82">
                             <bitmap>media/images/box/box-python-script.png</bitmap>
                             <script language="4">
                                 <content>
@@ -29,10 +29,7 @@ class MyClass(GeneratedClass):
 
     def onUnload(self):
         #put clean-up code here
-        try:
-            self.asr.unsubscribe("Question")
-        except RuntimeError:
-            pass
+        pass
 
     def onInput_onStart(self):
         #self.onStopped() #activate the output of the box
@@ -56,6 +53,7 @@ class MyClass(GeneratedClass):
             self.asr.subscribe("Question")
             time.sleep(3)
             word = self.memory.getData("WordRecognized")
+            self.asr.unsubscribe("Question")
 
         return word[0]
 

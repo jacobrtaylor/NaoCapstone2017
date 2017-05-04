@@ -22,30 +22,21 @@
                                     <![CDATA[from random import randint
 class MyClass(GeneratedClass):
     def __init__(self):
-        #from random import randint
         GeneratedClass.__init__(self)
-        #self.tts = ALProxy('ALTextToSpeech')
-        #self.asr = ALProxy('ALSpeechRecognition')
-        #self.asr.setLanguage("English")
-        #self.asr.setVocabulary(["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"],False)
-        #self.memory = ALProxy("ALMemory")
     def onLoad(self):
         #put initialization code here
         pass
 
     def onUnload(self):
-        #put clean-up code here
-        try:
-            self.asr.unsubscribe("Question")
-        except RuntimeError:
-            pass
+        pass
 
     def onInput_onStart(self):
         #self.onStopped() #activate the output of the box
+        print("We are here")
         self.tts = ALProxy('ALTextToSpeech')
         self.asr = ALProxy('ALSpeechRecognition')
         self.asr.setLanguage("English")
-        self.asr.setVocabulary(["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"],False)
+        self.asr.setVocabulary(["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"],False)
         self.memory = ALProxy("ALMemory")
         self.Addittion()
 
@@ -62,7 +53,9 @@ class MyClass(GeneratedClass):
             self.asr.subscribe("Question")
             time.sleep(3)
             word = self.memory.getData("WordRecognized")
+            self.asr.unsubscribe("Question")
 
+        print 'word received ' + word[0]
         return word[0]
 
     def Addittion(self):
